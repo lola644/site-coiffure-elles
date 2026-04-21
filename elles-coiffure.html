@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elles Coiffure — Salon de Coiffure Mixte · Bidart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --beige-0: #faf8f5;
+      --beige-1: #f4efe8;
+      --beige-2: #e8ddd0;
+      --beige-3: #d5c4b0;
+      --beige-4: #c4a98e;
+      --beige-5: #b08c6c;
+      --warm-dark: #3a2f27;
+      --warm-mid: #6b5649;
+      --text-body: #4a3f37;
+      --accent: #c4a98e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--beige-0);
+      color: var(--text-body);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--beige-2);
+      transition: padding 0.3s;
+    }
+    nav.scrolled { padding: 12px 60px; }
+    .nav-logo { height: 52px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--warm-dark); }
+    .nav-cta {
+      background: var(--beige-4);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--beige-5); }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 120px 80px 80px 100px;
+      background: var(--beige-0);
+      position: relative;
+      z-index: 2;
+    }
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--beige-4);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--warm-dark);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--beige-4);
+    }
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--warm-mid);
+      max-width: 380px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .btn-primary {
+      background: var(--beige-4);
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+    }
+    .btn-primary:hover { background: var(--beige-5); transform: translateY(-1px); }
+    .btn-ghost {
+      color: var(--warm-mid);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--beige-3);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--warm-dark); border-color: var(--warm-dark); }
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.3s forwards;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(250,248,245,0.15) 0%, transparent 30%);
+    }
+    .hero-rating {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      background: rgba(250,248,245,0.95);
+      backdrop-filter: blur(8px);
+      padding: 20px 28px;
+      border-radius: 4px;
+      border: 1px solid var(--beige-2);
+    }
+    .rating-stars { color: var(--beige-4); font-size: 16px; letter-spacing: 2px; }
+    .rating-text { font-size: 11px; letter-spacing: 0.1em; color: var(--warm-mid); margin-top: 6px; }
+    .rating-score { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: var(--warm-dark); }
+
+    /* DIVIDER */
+    .divider-line {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--beige-3), transparent);
+      margin: 0 60px;
+    }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 600px;
+    }
+    .about-img {
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+    }
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 100px 80px 80px;
+      background: var(--beige-1);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--beige-4);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.5vw, 52px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--warm-dark);
+      margin-bottom: 28px;
+    }
+    .section-title em { font-style: italic; color: var(--beige-4); }
+    .about-text {
+      font-size: 14.5px;
+      line-height: 1.85;
+      color: var(--warm-mid);
+      margin-bottom: 20px;
+    }
+    .about-team {
+      margin-top: 36px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .team-name {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      padding: 8px 16px;
+      border: 1px solid var(--beige-3);
+      border-radius: 2px;
+    }
+
+    /* SERVICES */
+    .services {
+      padding: 100px 100px;
+      background: var(--beige-0);
+    }
+    .services-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--beige-1);
+      padding: 44px 40px;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--beige-2); }
+    .service-card-icon {
+      width: 36px;
+      height: 1px;
+      background: var(--beige-4);
+      margin-bottom: 24px;
+    }
+    .service-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--warm-dark);
+      margin-bottom: 16px;
+    }
+    .service-card-desc {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--warm-mid);
+    }
+
+    /* TARIFS */
+    .tarifs {
+      padding: 100px 100px;
+      background: var(--beige-1);
+    }
+    .tarifs-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .tarifs-tabs {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--beige-3);
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 14px 24px;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--beige-4);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+    .tab-btn.active { color: var(--warm-dark); }
+    .tab-btn.active::after { transform: scaleX(1); }
+    .tab-btn:hover { color: var(--warm-dark); }
+
+    .tarif-panel { display: none; }
+    .tarif-panel.active { display: block; }
+
+    .tarif-list {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .tarif-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--beige-2);
+      gap: 20px;
+    }
+    .tarif-item:last-child { border-bottom: none; }
+    .tarif-name {
+      font-size: 14px;
+      color: var(--warm-dark);
+      font-weight: 400;
+      flex: 1;
+    }
+    .tarif-duration {
+      font-size: 11px;
+      color: var(--beige-4);
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+      min-width: 70px;
+      text-align: right;
+    }
+    .tarif-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--warm-dark);
+      flex-shrink: 0;
+      min-width: 90px;
+      text-align: right;
+    }
+    .tarif-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--warm-dark);
+      margin: 36px 0 8px;
+      font-style: italic;
+    }
+
+    /* GALERIE */
+    .galerie {
+      padding: 100px;
+      background: var(--beige-0);
+    }
+    .galerie-header { text-align: center; margin-bottom: 56px; }
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 4px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .galerie-item {
+      overflow: hidden;
+      background: var(--beige-2);
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .galerie-item:hover img { transform: scale(1.03); }
+    .galerie-main { grid-row: span 2; min-height: 520px; }
+    .galerie-side { min-height: 256px; }
+
+    /* INFOS */
+    .infos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--warm-dark);
+      color: var(--beige-0);
+    }
+    .infos-hours {
+      padding: 80px 80px 80px 100px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .infos-contact {
+      padding: 80px 100px 80px 80px;
+    }
+    .infos-label {
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--beige-3);
+      margin-bottom: 20px;
+    }
+    .infos-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      color: var(--beige-0);
+      margin-bottom: 40px;
+    }
+    .hours-list { list-style: none; }
+    .hours-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 13px;
+      color: var(--beige-2);
+    }
+    .hours-item:last-child { border-bottom: none; }
+    .hours-day { font-weight: 400; letter-spacing: 0.04em; }
+    .hours-time { color: var(--beige-3); }
+    .hours-closed { color: var(--beige-4); font-style: italic; }
+
+    .contact-block { margin-bottom: 32px; }
+    .contact-type {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--beige-4);
+      margin-bottom: 8px;
+    }
+    .contact-value {
+      font-size: 15px;
+      color: var(--beige-1);
+      line-height: 1.6;
+    }
+    .contact-value a { color: var(--beige-1); text-decoration: none; }
+    .contact-value a:hover { color: var(--beige-3); }
+
+    .rdv-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--beige-4);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .rdv-btn:hover { background: var(--beige-3); }
+
+    /* FOOTER */
+    footer {
+      background: var(--warm-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo { height: 44px; filter: brightness(0) invert(1) opacity(0.5); }
+    .footer-copy {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; height: auto; }
+      .hero-left { padding: 120px 36px 60px; }
+      .hero-right { height: 360px; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { min-height: 360px; }
+      .about-content { padding: 60px 36px; }
+      .services { padding: 60px 36px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .tarifs { padding: 60px 24px; }
+      .galerie { padding: 60px 24px; }
+      .galerie-grid { grid-template-columns: 1fr; }
+      .galerie-main { grid-row: span 1; min-height: 280px; }
+      .infos { grid-template-columns: 1fr; }
+      .infos-hours { padding: 60px 36px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .infos-contact { padding: 60px 36px; }
+      footer { flex-direction: column; gap: 16px; padding: 32px 36px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <img src="uploads/pasted-1776761363342-0.png" alt="Elles Coiffure" class="nav-logo">
+    <ul class="nav-links">
+      <li><a href="#about">Le Salon</a></li>
+      <li><a href="#services">Prestations</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#infos">Horaires</a></li>
+    </ul>
+    <a href="https://www.planity.com/elles-coiffure-64210-bidart" target="_blank" class="nav-cta">Prendre RDV</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-tag">Salon de Coiffure Mixte — Bidart</p>
+      <h1 class="hero-title">L'art de la<br>coiffure, <em>avec<br>élégance</em></h1>
+      <p class="hero-desc">Un salon chic et lumineux au cœur du Pays Basque, où chaque détail est pensé pour votre bien-être et l'éclat de votre chevelure.</p>
+      <div class="hero-actions">
+        <a href="https://www.planity.com/elles-coiffure-64210-bidart" target="_blank" class="btn-primary">Réserver en ligne</a>
+        <a href="#tarifs" class="btn-ghost">Voir les tarifs</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="uploads/salon-interieur.png" alt="Intérieur du salon Elles Coiffure">
+      <div class="hero-overlay"></div>
+      <div class="hero-rating">
+        <div class="rating-score">5,0</div>
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-text">243 avis clients</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-img">
+      <img src="uploads/salon-facade.png" alt="Façade du salon Elles Coiffure à Bidart">
+    </div>
+    <div class="about-content">
+      <p class="section-label reveal">Notre histoire</p>
+      <h2 class="section-title reveal">Un espace dédié à<br><em>votre chevelure</em></h2>
+      <p class="about-text reveal">Stéphanie, Léa, Marina et Pauline mettent toute leur expertise au service de votre chevelure. Retrouvez des prestations de qualité, adaptées à vos besoins et à vos souhaits.</p>
+      <p class="about-text reveal">Que vous ayez envie d'une nouvelle coupe tendance, d'une permanente, d'une couleur ou d'un balayage, vos coiffeuses réaliseront une prestation sur mesure qui réveillera toute votre féminité.</p>
+      <div class="about-team reveal">
+        <span class="team-name">Stéphanie</span>
+        <span class="team-name">Léa</span>
+        <span class="team-name">Marina</span>
+        <span class="team-name">Pauline</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <p class="section-label reveal">Ce que nous proposons</p>
+      <h2 class="section-title reveal">Nos <em>prestations</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-card-icon"></div>
+        <h3 class="service-card-title">Coupe & Coiffage</h3>
+        <p class="service-card-desc">Coupes femme, homme et enfant. Shampoing, coupe, brushing — un soin complet pour sublimer votre silhouette.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-icon"></div>
+        <h3 class="service-card-title">Couleur & Balayage</h3>
+        <p class="service-card-desc">Colorations sur mesure, balayages ensoleillés, mèches — pour une chevelure lumineuse et pleine de caractère.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-icon"></div>
+        <h3 class="service-card-title">Soins & Traitements</h3>
+        <p class="service-card-desc">Soin botox, soin Spa, lissage brésilien, cure Vello — des soins d'exception pour cheveux resplendissants.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-icon"></div>
+        <h3 class="service-card-title">Extensions</h3>
+        <p class="service-card-desc">Extensions 20 à 50 cm pour une longueur et un volume magnifiques. Sur consultation uniquement.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-icon"></div>
+        <h3 class="service-card-title">Mariages & Chignons</h3>
+        <p class="service-card-desc">Forfait mariée avec essai inclus, attaches et chignons de 15 € à 50 €. Votre grand jour mérite le meilleur.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-icon"></div>
+        <h3 class="service-card-title">Hommes</h3>
+        <p class="service-card-desc">Shampoing coupe coiffage, taille de barbe, cover couleur — les hommes trouveront aussi leur bonheur.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section class="tarifs" id="tarifs">
+    <div class="tarifs-header">
+      <p class="section-label reveal">Grille tarifaire</p>
+      <h2 class="section-title reveal">Nos <em>tarifs</em></h2>
+    </div>
+    <div class="tarifs-tabs">
+      <button class="tab-btn active" onclick="showTab('femme')">Femme</button>
+      <button class="tab-btn" onclick="showTab('couleur')">Couleur</button>
+      <button class="tab-btn" onclick="showTab('balayage')">Balayage</button>
+      <button class="tab-btn" onclick="showTab('soins')">Soins</button>
+      <button class="tab-btn" onclick="showTab('lissage')">Lissage</button>
+      <button class="tab-btn" onclick="showTab('homme')">Homme</button>
+      <button class="tab-btn" onclick="showTab('enfant')">Enfant</button>
+      <button class="tab-btn" onclick="showTab('extensions')">Extensions</button>
+      <button class="tab-btn" onclick="showTab('mariage')">Mariage</button>
+    </div>
+
+    <div id="tab-femme" class="tarif-panel active">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">30 min</span><span class="tarif-price">48 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">45 min</span><span class="tarif-price">53 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">1h</span><span class="tarif-price">57 €</span></div>
+        <p class="tarif-section-title">Shampoing Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">30 min</span><span class="tarif-price">28 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">30 min</span><span class="tarif-price">33 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">30 min</span><span class="tarif-price">37 €</span></div>
+        <p class="tarif-section-title">À la carte</p>
+        <div class="tarif-item"><span class="tarif-name">Soin</span><span class="tarif-duration">5 min</span><span class="tarif-price">14–150 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Démêlant</span><span class="tarif-duration">10 min</span><span class="tarif-price">10 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Mousse</span><span class="tarif-duration">5 min</span><span class="tarif-price">7 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Supplément Plaques</span><span class="tarif-duration">10 min</span><span class="tarif-price">10 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Frange</span><span class="tarif-duration">5 min</span><span class="tarif-price">10 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-couleur" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Couleur & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">85 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 45</span><span class="tarif-price">90 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h</span><span class="tarif-price">94 €</span></div>
+        <p class="tarif-section-title">Couleur & Shampoing Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">65 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">70 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">74 €</span></div>
+        <p class="tarif-section-title">Homme</p>
+        <div class="tarif-item"><span class="tarif-name">Cover / Couleur homme</span><span class="tarif-duration">30 min</span><span class="tarif-price">24 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-balayage" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Balayage & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">2h</span><span class="tarif-price">88 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">2h</span><span class="tarif-price">103 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h 30</span><span class="tarif-price">117 €</span></div>
+        <p class="tarif-section-title">Balayage & Shampoing Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">68 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 45</span><span class="tarif-price">83 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h</span><span class="tarif-price">97 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-soins" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Soin Bot & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">2h</span><span class="tarif-price">183 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">2h 30</span><span class="tarif-price">208 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h 35</span><span class="tarif-price">232 €</span></div>
+        <p class="tarif-section-title">Soin Bot Express & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">110 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 45</span><span class="tarif-price">125 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h</span><span class="tarif-price">139 €</span></div>
+        <p class="tarif-section-title">Soin SPA & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">87 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 45</span><span class="tarif-price">89 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h</span><span class="tarif-price">95 €</span></div>
+        <p class="tarif-section-title">Permanente & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">95 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 45</span><span class="tarif-price">106 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">2h 15</span><span class="tarif-price">114 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-lissage" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Lissage Brésilien & Shampoing Coupe Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">3h</span><span class="tarif-price">248 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">3h 45</span><span class="tarif-price">298 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">4h 30</span><span class="tarif-price">305 €</span></div>
+        <p class="tarif-section-title">Lissage Brésilien & Shampoing Coiffage</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">3h</span><span class="tarif-price">228 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">3h 30</span><span class="tarif-price">278 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">4h</span><span class="tarif-price">285 €</span></div>
+        <p class="tarif-section-title">Cure Vello — Femmes</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">300 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">360 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">420 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Hors cure — Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">70 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Hors cure — Mi-longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">82 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-homme" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Prestations Homme</p>
+        <div class="tarif-item"><span class="tarif-name">Shampoing Coupe Coiffage</span><span class="tarif-duration">30 min</span><span class="tarif-price">28 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Shampoing Coupe Coiffage + Barbe</span><span class="tarif-duration">30 min</span><span class="tarif-price">38 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Taille Barbe (sans rasoir)</span><span class="tarif-duration">15 min</span><span class="tarif-price">10 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cover / Couleur</span><span class="tarif-duration">30 min</span><span class="tarif-price">24 €</span></div>
+        <p class="tarif-section-title">Cure Vello — Hommes</p>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">200 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Mi-longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">240 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Cheveux Longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">270 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Hors cure — Courts</span><span class="tarif-duration">1h 30</span><span class="tarif-price">45 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Hors cure — Mi-longs</span><span class="tarif-duration">1h 30</span><span class="tarif-price">55 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-enfant" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Forfait Enfant</p>
+        <div class="tarif-item"><span class="tarif-name">Fillette moins de 5 ans</span><span class="tarif-duration">30 min</span><span class="tarif-price">17 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Fillette moins de 12 ans</span><span class="tarif-duration">30 min</span><span class="tarif-price">21 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Garçon moins de 5 ans</span><span class="tarif-duration">30 min</span><span class="tarif-price">16 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Garçon moins de 12 ans</span><span class="tarif-duration">30 min</span><span class="tarif-price">19 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Shampoing coupe ado garçon — 20 ans</span><span class="tarif-duration">30 min</span><span class="tarif-price">20,80 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-extensions" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Extensions (25 mèches) — Sur RDV</p>
+        <div class="tarif-item"><span class="tarif-name">Extensions 20 cm</span><span class="tarif-duration">1h</span><span class="tarif-price">155 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Extensions 30 cm</span><span class="tarif-duration">1h</span><span class="tarif-price">225,50 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Extensions 40 cm</span><span class="tarif-duration">1h</span><span class="tarif-price">275 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Extensions 50 cm</span><span class="tarif-duration">1h</span><span class="tarif-price">337 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Extensions Bronde 30 cm</span><span class="tarif-duration">1h</span><span class="tarif-price">310,50 €</span></div>
+      </div>
+    </div>
+
+    <div id="tab-mariage" class="tarif-panel">
+      <div class="tarif-list">
+        <p class="tarif-section-title">Attaches & Chignons</p>
+        <div class="tarif-item"><span class="tarif-name">Attache</span><span class="tarif-duration">30 min</span><span class="tarif-price">15–50 €</span></div>
+        <div class="tarif-item"><span class="tarif-name">Forfait Mariée Chignon + Essai</span><span class="tarif-duration">1h</span><span class="tarif-price">120 €</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="galerie">
+    <div class="galerie-header">
+      <p class="section-label reveal">Ambiance</p>
+      <h2 class="section-title reveal">Notre <em>salon</em></h2>
+    </div>
+    <div class="galerie-grid reveal">
+      <div class="galerie-item galerie-main">
+        <img src="uploads/salon-interieur.png" alt="Intérieur salon">
+      </div>
+      <div class="galerie-item galerie-side">
+        <img src="uploads/salon-facade.png" alt="Façade salon" style="object-position: center top;">
+      </div>
+      <div class="galerie-item galerie-side" style="background: var(--beige-2); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; padding:32px; text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif; font-size:48px; color:var(--beige-4); font-weight:300; font-style:italic;">5,0</div>
+        <div style="color:var(--beige-4); font-size:20px; letter-spacing:4px;">★★★★★</div>
+        <div style="font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--warm-mid); margin-top:4px;">243 avis clients</div>
+        <div style="font-size:13px; color:var(--warm-mid); margin-top:16px; line-height:1.6; font-style:italic;">"Toujours parfait"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS -->
+  <section class="infos" id="infos">
+    <div class="infos-hours">
+      <p class="infos-label">Ouverture</p>
+      <h2 class="infos-title">Horaires</h2>
+      <ul class="hours-list">
+        <li class="hours-item"><span class="hours-day">Lundi</span><span class="hours-time">10:00 – 19:00</span></li>
+        <li class="hours-item"><span class="hours-day">Mardi</span><span class="hours-time">09:30 – 19:00</span></li>
+        <li class="hours-item"><span class="hours-day">Mercredi</span><span class="hours-time">09:30 – 19:00</span></li>
+        <li class="hours-item"><span class="hours-day">Jeudi</span><span class="hours-time">09:30 – 19:00</span></li>
+        <li class="hours-item"><span class="hours-day">Vendredi</span><span class="hours-time">09:30 – 19:00</span></li>
+        <li class="hours-item"><span class="hours-day">Samedi</span><span class="hours-time">09:30 – 18:00</span></li>
+        <li class="hours-item"><span class="hours-day">Dimanche</span><span class="hours-closed">Fermé</span></li>
+      </ul>
+    </div>
+    <div class="infos-contact">
+      <p class="infos-label">Nous trouver</p>
+      <h2 class="infos-title">Contact</h2>
+      <div class="contact-block">
+        <p class="contact-type">Adresse</p>
+        <p class="contact-value">1247 Avenue de Bayonne<br>64210 Bidart</p>
+      </div>
+      <div class="contact-block">
+        <p class="contact-type">Réservation en ligne</p>
+        <p class="contact-value"><a href="https://www.planity.com/elles-coiffure-64210-bidart" target="_blank">Via Planity — 24h/24, gratuit</a></p>
+      </div>
+      <div class="contact-block">
+        <p class="contact-type">Paiement</p>
+        <p class="contact-value">Sur place — Confirmation immédiate</p>
+      </div>
+      <a href="https://www.planity.com/elles-coiffure-64210-bidart" target="_blank" class="rdv-btn">Prendre rendez-vous</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="uploads/pasted-1776761363342-0.png" alt="Elles Coiffure" class="footer-logo">
+    <p class="footer-copy">© 2026 Elles Coiffure · 1247 Av. de Bayonne, 64210 Bidart</p>
+  </footer>
+
+  <script>
+    // NAV scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Tabs
+    function showTab(name) {
+      document.querySelectorAll('.tarif-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
